@@ -38,7 +38,7 @@ class PaintersDataset(Dataset):
                     print("Corrupted image! - {} - Path: {} - Img is None!".format(idx, filename))
                 else:
                     print("Corrupted image! - {} - Path: {} - len(img.getbands())".format(
-                        idx, self.img_filenames[idx], len(img.getbands())))
+                        idx, self.img_filenames.iloc[idx], len(img.getbands())))
 
             img = Image.fromarray(np.zeros([500, 500, 3], dtype=np.uint8))
             label = 0 * self.dates.iloc[idx]
@@ -48,7 +48,7 @@ class PaintersDataset(Dataset):
         if self.transform:
             img = self.transform(img)
 
-        return (img, label, self.base_dir + self.img_filenames.iloc[idx])
+        return (img, label, filename)
 
     def __len__(self):
         return len(self.img_filenames)
